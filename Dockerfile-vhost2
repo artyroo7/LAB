@@ -1,0 +1,9 @@
+FROM ubuntu
+
+RUN apt update -y && apt install -y python3 python3-pip
+
+RUN pip3 install flask-restful
+
+COPY ./vhost2/server.py /tmp1/server.py
+
+CMD python3 /tmp1/server.py

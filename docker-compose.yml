@@ -1,0 +1,52 @@
+version: "3.7"
+
+services:
+  ftp:
+    image: ftp-server:latest
+    volumes:
+      - ../file-server/:/file-server/
+      - ../file-server-anon/:/file-server-anon/
+    ports:
+      - "21:21"
+      - "5000-5020:5000-5020"
+
+  vhost1:
+    build:
+      context: .
+      dockerfile: Dockerfile-vhost1
+    container_name: vhost1
+    networks:
+      - net1
+      - net3
+
+  vhost2:
+    build:
+      context: .
+      dockerfile: Dockerfile-vhost2
+    volumes:
+      - D:\HW\Basics of Virtualization\LAB\backup:/tmp
+      - DockerBackup:/opt/backup
+    container_name: vhost2
+    networks:
+      - net2
+      - net3
+
+  vhost3:
+    build:
+      context: .
+      dockerfile: Dockerfile-vhost3
+    container_name: vhost3
+    volumes:
+      - D:\HW\Basics of Virtualization\LAB\vhost3\data:/tmp
+    ports:
+      - '21:21'
+    networks:
+      - net3
+
+networks:
+  net1:
+  net2:
+  net3:
+
+volumes:
+  DockerBackup:

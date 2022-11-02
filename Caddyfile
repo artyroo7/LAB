@@ -1,0 +1,11 @@
+{
+        auto_https disable_redirects
+}
+
+http://vhost1.localhost {
+        reverse_proxy vhost1:80
+}
+
+http://vhost2.localhost {
+        reverse_proxy vhost2:80
+}
